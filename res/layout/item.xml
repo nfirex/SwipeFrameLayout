@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.wagado.widget.SwipeFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="#000000" >
+
+    <View
+        android:id="@+id/item_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0000ff" />
+
+    <TextView
+        android:id="@+id/item_front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:textColor="#000000" />
+
+</com.wagado.widget.SwipeFrameLayout>

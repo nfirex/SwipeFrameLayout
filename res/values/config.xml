@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SwipeFrameLayout</string>
+
+    <dimen name="offset_right">48dp</dimen>
+    <dimen name="offset_left">96dp</dimen>
+
+</resources>
