@@ -10,28 +10,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ff0000"
-        wagado:offsetOpenLeft="48dp" />
+        wagado:offsetOpenLeft="48dp"
+        wagado:offsetOpenRight="48dp" />
 
     <View
         android:id="@+id/item_back_green"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="#00ff00"
-        wagado:offsetOpenLeft="96dp" />
+        wagado:offsetOpenLeft="96dp"
+        wagado:offsetOpenRight="96dp" />
 
     <View
         android:id="@+id/item_back_blue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="#0000ff"
-        wagado:offsetOpenLeft="144dp" />
+        wagado:offsetOpenLeft="144dp"
+        wagado:offsetOpenRight="144dp" />
 
     <TextView
         android:id="@+id/item_front"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:background="#ffffff"
         android:textColor="#000000"
-        wagado:offsetOpenLeft="192dp" />
+        wagado:offsetOpenLeft="192dp"
+        wagado:offsetOpenRight="192dp" />
 
 </com.wagado.widget.SwipeFrameLayout>

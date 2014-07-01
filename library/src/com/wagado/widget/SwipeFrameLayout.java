@@ -230,19 +230,12 @@ public class SwipeFrameLayout extends FrameLayout {
 
 	protected View getInterceptedView(MotionEvent event) {
 		if (mViews != null) {
-			for (int i = mViews.length - 2; i >= 0; i--) {
-				final View front = mViews[i + 1];
-				final float frontOffsetX = ViewHelper.getTranslationX(front);
+			for (int i = mViews.length - 1; i >= 0; i--) {
+				final View view = mViews[i];
 
-				if (event.getX() < frontOffsetX || event.getX() > front.getMeasuredWidth() + frontOffsetX) {
-					final View back = mViews[i];
-					final float backOffsetX = ViewHelper.getTranslationX(back);
-
-					if (event.getX() > backOffsetX && event.getX() < back.getMeasuredWidth() + backOffsetX) {
-						return back;
-					}
-				} else {
-					return front;
+				final float offsetX = ViewHelper.getTranslationX(view) + view.getLeft();
+				if (event.getX() > offsetX && event.getX() < view.getMeasuredWidth() + offsetX) {
+					return view;
 				}
 			}
 		}
