@@ -3,7 +3,4 @@
 
     <string name="app_name">SwipeFrameLayout</string>
 
-    <dimen name="offset_right">48dp</dimen>
-    <dimen name="offset_left">96dp</dimen>
-
 </resources>

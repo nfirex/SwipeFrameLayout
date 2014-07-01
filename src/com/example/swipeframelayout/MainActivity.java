@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,13 +33,15 @@ public class MainActivity extends ListActivity implements ISwipeListener {
 
 		final ListAdapter adapter = new CustomAdapter(getApplicationContext(), this, items);
 		setListAdapter(adapter);
-
-		getListView().setDrawSelectorOnTop(true);
-		getListView().setOnItemClickListener(null);
 	}
 
 	@Override
-	public void swipeComplete(SwipeFrameLayout view, SwipeState state) {
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Toast.makeText(getApplicationContext(), l.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void swipeComplete(SwipeFrameLayout view, View child, SwipeState state) {
 
 	}
 
@@ -50,8 +53,6 @@ public class MainActivity extends ListActivity implements ISwipeListener {
 		private final LayoutInflater mInflater;
 		private final ISwipeListener mListener;
 		private final String[] mItems;
-		private final int mOffsetRight;
-		private final int mOffsetLeft;
 
 		public CustomAdapter(Context context, ISwipeListener listener, String[] items) {
 			mContext = context;
@@ -59,8 +60,6 @@ public class MainActivity extends ListActivity implements ISwipeListener {
 			mItems = items;
 
 			mInflater = LayoutInflater.from(context);
-			mOffsetLeft = context.getResources().getDimensionPixelSize(R.dimen.offset_left);
-			mOffsetRight = context.getResources().getDimensionPixelSize(R.dimen.offset_right);
 		}
 
 		@Override
@@ -85,15 +84,21 @@ public class MainActivity extends ListActivity implements ISwipeListener {
 			final Holder holder;
 			if (convertView == null) {
 				frame = (SwipeFrameLayout) mInflater.inflate(R.layout.item, parent, false);
-				frame.setOffsets(mOffsetLeft, mOffsetRight);
 				frame.setSwipeListener(mListener);
 				convertView = frame;
 
 				holder = new Holder();
 				holder.text = (TextView) convertView.findViewById(R.id.item_front);
-				holder.listener = new BackClickListener(mContext, frame);
-				holder.back = convertView.findViewById(R.id.item_back);
-				holder.back.setOnClickListener(holder.listener);
+
+				holder.redListener = new BackClickListener(mContext, frame, BackClickListener.COLOR_RED);
+				convertView.findViewById(R.id.item_back_red).setOnClickListener(holder.redListener);
+
+				holder.greenListener = new BackClickListener(mContext, frame, BackClickListener.COLOR_GREEN);
+				convertView.findViewById(R.id.item_back_green).setOnClickListener(holder.greenListener);
+
+				holder.blueListener = new BackClickListener(mContext, frame, BackClickListener.COLOR_BLUE);
+				convertView.findViewById(R.id.item_back_blue).setOnClickListener(holder.blueListener);
+
 				convertView.setTag(holder);
 			} else {
 				frame = (SwipeFrameLayout) convertView;
@@ -102,8 +107,10 @@ public class MainActivity extends ListActivity implements ISwipeListener {
 
 			final String item = getItem(position);
 			holder.text.setText(item);
-			holder.listener.setItem(item);
-			frame.resetItem();
+			holder.redListener.setItem(item);
+			holder.greenListener.setItem(item);
+			holder.blueListener.setItem(item);
+			frame.resetItems();
 
 			return convertView;
 		}
@@ -113,25 +120,33 @@ public class MainActivity extends ListActivity implements ISwipeListener {
 
 		private static class Holder {
 			public TextView text;
-			public View back;
-			public BackClickListener listener;
+			public BackClickListener redListener;
+			public BackClickListener greenListener;
+			public BackClickListener blueListener;
 		}
 
 		private class BackClickListener implements OnClickListener {
+			private static final String TOAST_PATTERN = "(%s) %s";
+			private static final String COLOR_RED = "red";
+			private static final String COLOR_GREEN = "green";
+			private static final String COLOR_BLUE = "blue";
+
 			private final Context mContext;
 			private final SwipeFrameLayout mFrame;
+			private final String mColorName;
 
 			private String mItem;
 
-			public BackClickListener(Context context, SwipeFrameLayout frame) {
+			public BackClickListener(Context context, SwipeFrameLayout frame, String colorName) {
 				mContext = context;
 				mFrame = frame;
+				mColorName = colorName;
 			}
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(mContext, mItem, Toast.LENGTH_SHORT).show();
-				mFrame.resetItemWithAnimation();
+				Toast.makeText(mContext, String.format(TOAST_PATTERN, mColorName, mItem), Toast.LENGTH_SHORT).show();
+				mFrame.resetItemsWithAnimation();
 			}
 
 

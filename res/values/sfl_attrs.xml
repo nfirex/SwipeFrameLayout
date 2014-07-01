@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SwipeFrameLayout.Layout">
+        <attr name="moveAnimationDuration" format="integer"/>
+        <attr name="offsetOpenLeft" format="dimension"/>
+        <attr name="offsetOpenRight" format="dimension" />
+    </declare-styleable>
+
+    <integer name="moveAnimationDurationDefault" >@android:integer/config_shortAnimTime</integer>
+</resources>
